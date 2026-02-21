@@ -79,8 +79,18 @@ public class DoubleList<T> implements List<T> {
 	}
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean hasChanged = false;
+		Iterator<T> it = this.iterator();
+
+		while (it.hasNext()) {
+			T element = it.next();
+			if (!c.contains(element)) {
+				it.remove();
+				hasChanged = true;
+			}
+		}
+
+		return hasChanged;
 	}
 	@Override
 	public void clear() {
