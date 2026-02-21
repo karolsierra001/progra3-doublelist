@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class DoubleList<T> implements List<T> {
     private Node<T> head;
@@ -34,8 +35,23 @@ public class DoubleList<T> implements List<T> {
 	}
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<T> iterator = new Iterator<T>(){
+			int index = 0;
+			@Override
+			public boolean hasNext() {
+				  return index < size();
+			}
+			@Override
+			public T next() {
+				 if (!hasNext()) {
+                    throw new NoSuchElementException();
+                  }
+				  T data = get(index);
+                  index++;
+                  return data;
+            }
+		}; 
+		return iterator;
 	}
 	@Override
 	public Object[] toArray() {
