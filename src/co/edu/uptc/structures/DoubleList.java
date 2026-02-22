@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import co.edu.uptc.util.Node;
 
 public class DoubleList<T> implements List<T> {
     private Node<T> head;
