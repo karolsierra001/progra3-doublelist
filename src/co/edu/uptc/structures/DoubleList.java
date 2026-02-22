@@ -19,8 +19,10 @@ public class DoubleList<T> implements List<T> {
     
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		if(size==Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        return size;
 	}
 	@Override
 	public boolean isEmpty() {
