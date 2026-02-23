@@ -641,8 +641,41 @@ public boolean addAll(int index, Collection<? extends T> c) {
 
 	@Override
 	public List<T> subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException("indices fuera de rango");
+        }
+        DoubleList<T> list = new DoubleList<>();
+        Node<T> current = head;
+        current = searchOrder(current, fromIndex);
+        for (int i = fromIndex; i < toIndex; i++) {
+            list.add(current.getValue());
+            current = current.getNext();
+        }
+        return list;
+		
 	}
+    private Node<T> searchOrder(Node<T> current, int fromIndex) {
+        if (fromIndex < size / 2) {
+            current = head;
+            orderFromHead(current, fromIndex);
+        } else {
+            current = tail;
+            orderFromTail(current, fromIndex);
+        }
+        return current;
+    }
 
+    private Node<T> orderFromHead(Node<T> current, int fromIndex) {
+        for (int i = 0; i < fromIndex; i++) {
+            current = current.getNext();
+        }
+        return current;
+    }
+
+    private Node<T> orderFromTail(Node<T> current, int fromIndex) {
+        for (int i = size - 1; i > fromIndex; i--) {
+            current = current.getPrevious();
+        }
+        return current;
+	}
 }
