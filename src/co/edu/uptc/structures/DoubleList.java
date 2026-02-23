@@ -77,7 +77,30 @@ public class DoubleList<T> implements List<T> {
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
+		Node<T> aux = head;
+		if (head == null) {
+			return false;
+		}
+		while (aux != null) {
+			if (aux.getValue().equals(o)) {
+				if (aux == head && head.getNext() == null) {
+					head = null;
+					tail = null;
+				}else if (aux == head) {
+					head = head.getNext();
+					head.setPrevious(null);
+				}else if (aux == tail) {
+					tail = tail.getPrevious();
+					tail.setNext(null);
+				}else{
+					aux.getPrevious().setNext(aux.getNext());
+					aux.getNext().setPrevious(aux.getPrevious());
+				}
+				size--;
+				return true;	
+			}
+			aux = aux.getNext();
+		}
 		return false;
 	}
 
