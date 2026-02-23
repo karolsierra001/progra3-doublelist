@@ -104,8 +104,17 @@ public class DoubleList<T> implements List<T> {
 	}
 	@Override
 	public T set(int index, T element) {
-		// TODO Auto-generated method stub
-		return null;
+		int counter=0; 
+        T oldData= get(index);
+        Node<T> auxNode = head; 
+         
+        if((index < 0 || index >= size())){ 
+            throw new IndexOutOfBoundsException(); 
+        } while (counter<index) { 
+            auxNode= auxNode.getNext(); counter++; 
+        } 
+        auxNode.setValue(element);
+		return oldData;
 	}
 	@Override
 	public void add(int index, T element) {
