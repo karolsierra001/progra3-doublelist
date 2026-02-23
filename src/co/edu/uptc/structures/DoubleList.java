@@ -132,8 +132,36 @@ public class DoubleList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		Node <T> aux = head;
+        int i = 0;
+
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+        while (i < index ) {
+            i++;
+            aux = aux.getNext();
+        }
+        if (aux == head) {
+            if (aux.getNext()==null) {
+                head = null;
+            }else{
+                head = head.getNext();
+                head.setPrevious(null);
+            }
+        }
+        if(aux.getNext()!=null){
+            aux.getNext().setPrevious(aux.getPrevious());
+        }
+        if (aux != head) {
+            aux.getPrevious().setNext(aux.getNext());
+        }
+        if(aux.getNext()== null){
+            tail = aux.getPrevious();
+        }
+
+        size --;
+        return aux.getValue();
 	}
 
 	@Override
