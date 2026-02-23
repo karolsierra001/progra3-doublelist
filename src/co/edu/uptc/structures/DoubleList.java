@@ -67,11 +67,51 @@ public class DoubleList<T> implements List<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+@Override
+public boolean add(T e) {
+    Node<T> newNode = new Node<>(e);  
+    if (head == null) {
+        head = newNode;
+        tail = newNode;
+    } else {
+        tail.setNext(newNode);
+        newNode.setPrevious(tail);
+        tail = newNode;
+    }
+	size++;
+    return true; 
+}
 
-	@Override
-	public boolean add(T e) {
-		// TODO Auto-generated method stub
+    @Override
+    public boolean equals(Object o){
+    if (this == o) { 
+        return true;
+    }
+    if (!(o instanceof DoubleList)) { 
 		return false;
+    }
+    DoubleList<?> other = (DoubleList<?>) o;
+    if (this.size() != other.size()) {
+        return false;
+    }
+		return equalsAux(o, other);
+	}
+
+	public boolean equalsAux(Object o, DoubleList<?> other){
+	Node<T> currentThis = this.head;
+    Node<?> currentOther = (Node<?>) other.head;
+    while (currentThis != null) {
+        T dataThis = currentThis.getValue();
+        Object dataOther = currentOther.getValue();
+        if (dataThis == null) {
+            if (dataOther != null) return false;
+        } else if (!dataThis.equals(dataOther)) {
+            return false;
+        }
+        currentThis = currentThis.getNext();
+        currentOther = currentOther.getNext();
+    }
+		return true;
 	}
 
 	@Override
